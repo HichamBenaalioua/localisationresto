@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.red {
+  cursor: pointer;
+  color: #f22613;
+}
+.blue {
+  cursor: pointer;
+  color: #0f0ade;
+}
+
+.linksl {
+  color: #282c34;
+  text-decoration: none;
+}
