@@ -5,12 +5,14 @@ import { Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import { useEffect } from "react";
 import SignUp from "./components/SignUp";
+import Map from "./Map";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<SignIn />}></Route>
+        <Route path="/" element={<Map />}></Route>
+        <Route path="/signin" element={<SignIn />}></Route>
         <Route path="dashboard/*" element={<Dashboard />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

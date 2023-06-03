@@ -27,6 +27,7 @@ import Zone from "./Zone";
 import Serie from "./Serie";
 import Specialite from "./Specialite";
 import Restaurant from "./Restaurant";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const drawerWidth = 270;
 
@@ -78,18 +79,25 @@ const Drawer = styled(MuiDrawer, {
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+  const [role, setRole] = React.useState("");
   React.useEffect(() => {
     const isAuthenticated = localStorage.getItem("userdata");
+    setRole(JSON.parse(isAuthenticated).role[0].nom);
     // If user is not authenticated, you can perform any necessary actions, such as redirecting to the login page.
     if (!isAuthenticated) {
       // Redirect to the login page or a different route
-      window.location.href = "/"; // Replace '/login' with your desired route
+      window.location.href = "/signin"; // Replace '/login' with your desired route
     }
   }, []);
 
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
+  };
+  const navigate = useNavigate();
+  const handlelogout = () => {
+    localStorage.removeItem("userdata");
+    navigate("/signin");
   };
 
   return (
@@ -123,6 +131,9 @@ export default function Dashboard() {
             >
               Dashboard
             </Typography>
+            <IconButton color="inherit">
+              <LogoutIcon onClick={handlelogout} />
+            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -139,7 +150,7 @@ export default function Dashboard() {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">{mainListItems}</List>
+          <List component="nav">{mainListItems(role)}</List>
         </Drawer>
         <Box
           component="main"
@@ -154,7 +165,7 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
 

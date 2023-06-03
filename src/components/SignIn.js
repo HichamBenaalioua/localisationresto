@@ -52,7 +52,7 @@ export default function SignIn() {
       password: data.get("password"),
     });
     if (response.data.error === undefined) {
-      localStorage.setItem("userdata", response.data);
+      localStorage.setItem("userdata", JSON.stringify(response.data));
       navigate("/dashboard");
     } else {
       setError(true);
